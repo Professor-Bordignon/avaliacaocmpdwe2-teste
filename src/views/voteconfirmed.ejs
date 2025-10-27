@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voto Registrado</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e8f5e9; /* Fundo levemente verde */
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-top: 5px solid #4CAF50; /* Destaque verde de sucesso */
+        }
+
+        .icon {
+            font-size: 3.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #388e3c;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .candidato-info {
+            background-color: #f1f8e9;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px dashed #a5d6a7;
+            display: inline-block;
+            font-weight: 600;
+            color: #1b5e20;
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">✅</div>
+        <h1>Voto Registrado com Sucesso!</h1>
+
+        <% if (candidato) { %>
+            <p>Seu voto foi contabilizado. Você votou na candidata:</p>
+            <div class="candidato-info">
+                <%= candidato.nome %>
+            </div>
+            <p style="margin-top: 20px;"><%= candidato.message %></p>
+        <% } else { %>
+            <p>Seu voto foi registrado, mas não conseguimos recuperar o nome do candidato.</p>
+        <% } %>
+
+        <a href="/" class="back-button">Voltar à Página Inicial</a>
+    </div>
+</body>
+</html>

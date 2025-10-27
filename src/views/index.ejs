@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Votação</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    .message {
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .message.success { background-color: #e8f5e9; color: #1b5e20; border-left: 5px solid #4caf50; }
+    .message.error { background-color: #ffebee; color: #b71c1c; border-left: 5px solid #f44336; }
+    .message.warning { background-color: #fff3e0; color: #e65100; border-left: 5px solid #ff9800; }
+
+    .section { margin-bottom: 40px; }
+
+    /* Lista de candidatos */
+    .candidato-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ecf0f1;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border-left: 5px solid #3498db;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .candidato-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    .numero {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #e74c3c;
+      padding-right: 15px;
+    }
+    .info strong {
+      font-size: 1.1em;
+      color: #2c3e50;
+    }
+    .votos {
+      font-weight: bold;
+      color: #27ae60;
+    }
+
+    /* Formulário */
+    .vote-form {
+      border: 2px solid #0056b3;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #f8f9fa;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover { background-color: #218838; }
+
+    /* Líder */
+    .leader {
+      background: linear-gradient(135deg, #ffffff, #ecf0f1);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      border-top: 5px solid #f39c12;
+    }
+    .leader h2 { color: #f39c12; }
+    .votes-display {
+      margin-top: 20px;
+      background-color: #e74c3c;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-weight: bold;
+    }
+
+    a.back-button {
+      display: inline-block;
+      background-color: #2196f3;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    a.back-button:hover { background-color: #1976d2; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Plataforma de Votação Escolar</h1>
+
+    <!-- Se houver candidatos, exibe a lista -->
+    <% if (data && data.length > 0) { %>
+      <div class="section">
+        <h2>Lista de Candidatos</h2>
+        <% data.forEach(candidato => { %>
+          <div class="candidato-card">
+            <div class="numero"><%= candidato.numero_candidato %></div>
+            <div class="info">
+              <strong><%= candidato.nome_candidato %></strong><br/>
+              <small>ID: <%= candidato.id %></small>
+            </div>
+            <div class="votos"><%= candidato.votos %> votos</div>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <!-- Formulário de voto -->
+    <div class="section">
+      <h2>Votar Agora</h2>
+      <form action="/votar" method="POST" class="vote-form">
+        <label for="email">Seu E-mail:</label>
+        <input type="email" name="email" id="email" required placeholder="exemplo@escola.com">
+
+        <label for="id">Selecione o Candidato:</label>
+        <select name="id" id="id" required>
+          <option value="" disabled selected>--- Escolha um candidato ---</option>
+          <% if (data) { data.forEach(c => { %>
+            <option value="<%= c.id %>"><%= c.nome_candidato %></option>
+          <% }) } %>
+        </select>
+
+        <button type="submit">Confirmar Voto</button>
+      </form>
+    </div>
+    <div class="section" style="text-align:center;">
+      <a href="/" class="back-button">Voltar à Página Inicial</a>
+    </div>
+  </div>
+</body>
+</html>

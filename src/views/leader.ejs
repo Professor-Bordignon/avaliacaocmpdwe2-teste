@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidato Líder</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .leader-container {
+            width: 90%;
+            max-width: 500px;
+            background: linear-gradient(135deg, #ffffff, #ecf0f1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(44, 62, 80, 0.15);
+            text-align: center;
+            border-top: 5px solid #f39c12; /* Cor de ouro */
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #f39c12;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .leader-info h2 {
+            font-size: 2.5em;
+            color: #2980b9;
+            margin: 10px 0;
+            font-weight: 800;
+        }
+
+        .leader-info p {
+            font-size: 1.2em;
+            margin: 5px 0;
+            color: #7f8c8d;
+        }
+
+        .votes-display {
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px 25px;
+            margin-top: 25px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 1.8em;
+            font-weight: 900;
+            box-shadow: 0 4px 10px rgba(231, 76, 60, 0.4);
+        }
+
+        .no-leader-message {
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="leader-container">
+        <% if (leader) { %>
+            <h1>Candidato Líder Atual</h1>
+            <div class="leader-info">
+                <p>Número</p>
+                <h2><%= leader.numero_candidato %></h2>
+                <p>Nome</p>
+                <h2><%= leader.nome_candidato %></h2>
+            </div>
+            <div class="votes-display">
+                <%= leader.votos %> VOTOS
+            </div>
+        <% } else { %>
+            <div class="no-leader-message">
+                <h1>Aguardando Votos</h1>
+                <p>Não há dados de líder para exibir neste momento.</p>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

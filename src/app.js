@@ -1,10 +1,15 @@
 const express = require('express');
+const path = require('path');
+const electionRoutes = require('./routes/electionRoutes');
+
 const app = express();
 
-// Aqui você deve desenvolver toda a configuração do seu app. 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-//ATENÇÂO NÃO COLOQUE O COMANDO app.listen nesse arquivo. Ele já está no server, que é o arquivo principal da sua aplicação. 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Para iniciar sua aplicação digite nodemon server.js
+app.use('/', electionRoutes);
 
 module.exports = app;

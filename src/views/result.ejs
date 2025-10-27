@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado da Votação</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Cores baseadas no Status */
+        .success {
+            background-color: #e8f5e9; /* Light Green */
+            border-top: 5px solid #4CAF50;
+        }
+        .error {
+            background-color: #ffebee; /* Light Red */
+            border-top: 5px solid #f44336;
+        }
+        .warning {
+            background-color: #fff3e0; /* Light Orange (para Duplicidade) */
+            border-top: 5px solid #ff9800;
+        }
+        
+        .icon-success { color: #4CAF50; }
+        .icon-error { color: #f44336; }
+        .icon-warning { color: #ff9800; }
+
+        .icon {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        /* Títulos de acordo com o status */
+        .success h1 { color: #388e3c; }
+        .error h1 { color: #d32f2f; }
+        .warning h1 { color: #f57c00; }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .candidato-info {
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        /* Cor de fundo da info para sucesso */
+        .success .candidato-info {
+            background-color: #f1f8e9;
+            border: 1px dashed #a5d6a7;
+            color: #1b5e20;
+        }
+
+        .back-button {
+            display: inline-block;
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <!-- Define classes com base no status HTTP para estilização -->
+    <div class="container <%= status === 201 ? 'success' : status === 403 ? 'warning' : 'error' %>">
+        
+        <% 
+            let pageTitle, iconHtml;
+            if (status === 201) {
+                pageTitle = "Voto Registrado!";
+                iconHtml = "✅";
+            } else if (status === 403) {
+                pageTitle = "Voto Duplicado";
+                iconHtml = "⚠️";
+            } else if (status === 404) {
+                pageTitle = "Candidato Não Encontrado";
+                iconHtml = "❌";
+            } else { // 500 ou outro erro
+                pageTitle = "Erro na Votação";
+                iconHtml = "🚨";
+            }
+        %>
+
+        <div class="icon <%= status === 201 ? 'icon-success' : status === 403 ? 'icon-warning' : 'icon-error' %>"><%= iconHtml %></div>
+        <h1><%= pageTitle %></h1>
+
+        <p>
+            <!-- Exibe a mensagem principal, seja de sucesso ou erro -->
+            <%= mensagem %>
+        </p>
+
+        <% if (candidatoNome) { %>
+            <p>Você votou em:</p>
+            <div class="candidato-info">
+                <%= candidatoNome %>
+            </div>
+        <% } %>
+
+        <a href="/" class="back-button">Voltar à Página Inicial</a>
+    </div>
+</body>
+</html>

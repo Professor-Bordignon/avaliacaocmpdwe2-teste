@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Candidatos</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .candidato-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ecf0f1;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #3498db; /* Destaque da cor principal */
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .candidato-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .info {
+            flex-grow: 1;
+        }
+
+        .info strong {
+            display: block;
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .info span {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .numero {
+            font-size: 2em;
+            font-weight: bold;
+            color: #e74c3c; /* Cor de destaque para o número */
+            padding: 0 15px;
+        }
+        
+        .votos {
+             font-size: 1.2em;
+             font-weight: 600;
+             color: #27ae60; /* Cor para os votos */
+             background-color: #e6f7ee;
+             padding: 5px 10px;
+             border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Candidatos Registrados</h1>
+
+        <% if (candidatos && candidatos.length > 0) { %>
+            <% candidatos.forEach(candidato => { %>
+                <div class="candidato-card">
+                    <div class="numero"><%= candidato.numero_candidato %></div>
+                    <div class="info">
+                        <strong><%= candidato.nome_candidato %></strong>
+                        <span>ID: <%= candidato.id %></span>
+                    </div>
+                    <div class="votos"><%= candidato.votos %> Votos</div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p style="text-align: center; color: #e74c3c;">Nenhum candidato encontrado.</p>
+        <% } %>
+
+    </div>
+</body>
+</html>
